@@ -9,14 +9,14 @@ varnish v1 -vcl+backend {
 	import dogatemyhomework from "${vmod_topbuild}/src/.libs/libvmod_dogatemyhomework.so";
 
 	sub vcl_deliver {
-		set resp.http.hello = dogatemyhomework.hello("World");
+		set resp.http.x-excuse = dogatemyhomework.dogatemyhomework();
 	}
 } -start
 
 client c1 {
-	txreq -url "/"
+	txreq
 	rxresp
-	expect resp.http.hello == "Hello, World"
+	expect resp.http.x-excuse ~ "I can't come to work"
 }
 
 client c1 -run
